@@ -1,0 +1,45 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+from queue import PriorityQueue
+
+# 3D Surface Plot
+x = y = np.linspace(-3, 3, 30)
+x, y = np.meshgrid(x, y)
+z = x**2 + y**2
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(x, y, z, cmap='viridis')
+plt.show()
+
+# Best First Search
+graph = {
+    'S': ['A', 'B'],
+    'A': ['G'],
+    'B': ['G'],
+    'G': []
+}
+h = {'S': 3, 'A': 2, 'B': 1, 'G': 0}
+
+def best_first(start, goal):
+    pq = PriorityQueue()
+    pq.put((h[start], start))
+    visited = set()
+
+    while not pq.empty():
+        _, node = pq.get()
+        if node in visited:
+            continue
+        print("Visited:", node)
+        visited.add(node)
+
+        if node == goal:
+            print("Goal Reached:", node)
+            break
+
+        for n in graph[node]:
+            pq.put((h[n], n))
+
+# Run Best First Search
+best_first('S', 'G')
