@@ -1,0 +1,17 @@
+import matplotlib.pyplot as plt
+
+# Box Plot
+data = list(map(int, input("Enter values for box plot: ").split()))
+plt.boxplot(data)
+plt.title("Box Plot")
+plt.show()
+
+# Simplified Alpha-Beta (2-level tree)
+def alphabeta(vals):
+    a = min(vals[0], vals[1])
+    b = min(vals[2], vals[3])
+    return max(a, b)
+
+v = list(map(int, input("Enter 4 leaf values: ").split()))
+print("Alpha-Beta Result:", alphabeta(v))
+
