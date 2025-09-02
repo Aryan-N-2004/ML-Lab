@@ -1,0 +1,20 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Heatmap
+data = np.random.rand(4, 4)
+sns.heatmap(data, annot=True)
+plt.title("Heatmap")
+plt.show()
+
+# Minimax (2-level tree demo)
+def minmax(values, is_max):
+    a = values[0:2]  # first branch
+    b = values[2:4]  # second branch
+    return max(min(a), min(b)) if is_max else min(max(a), max(b))
+
+# Example run
+vals = list(map(int, input("Enter 4 values (space-separated): ").split()))
+print("Result:", minmax(vals, True))
+
