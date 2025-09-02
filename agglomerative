@@ -1,0 +1,34 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.datasets import load_iris
+
+# Load first 6 samples of Iris dataset
+iris = load_iris()
+data = iris.data[:6]
+
+# Function to compute proximity matrix
+def proximity_matrix(X):
+    n = X.shape[0]
+    mat = np.zeros((n, n))
+    for i in range(n):
+        for j in range(i+1, n):
+            dist = np.linalg.norm(X[i] - X[j])  # Euclidean distance
+            mat[i, j] = mat[j, i] = dist
+    return mat
+
+# Function to plot dendrogram
+def plot_dendrogram(X, method):
+    Z = linkage(X, method=method)
+    dendrogram(Z, labels=[f"Point {i}" for i in range(len(X))])
+    plt.title(f"Hierarchical Clustering ({method.capitalize()} Linkage)")
+    plt.xlabel("Data Points")
+    plt.ylabel("Distance")
+    plt.show()
+
+# Show proximity matrix
+print("Proximity matrix:\n", proximity_matrix(data))
+
+# Plot dendrograms
+plot_dendrogram(data, "single")
+plot_dendrogram(data, "complete")
