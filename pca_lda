@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+# Load Iris dataset
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# ----- PCA -----
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+print("PCA: Original shape:", X.shape)
+print("PCA: Transformed shape:", X_pca.shape)
+
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap="jet", alpha=0.7)
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.title("PCA on Iris Dataset")
+plt.show()
+
+# ----- LDA -----
+lda = LinearDiscriminantAnalysis(n_components=2)
+X_lda = lda.fit_transform(X, y)
+
+print("LDA: Original shape:", X.shape)
+print("LDA: Transformed shape:", X_lda.shape)
+
+plt.scatter(X_lda[:, 0], X_lda[:, 1], c=y, cmap="jet", alpha=0.7)
+plt.xlabel("Linear Discriminant 1")
+plt.ylabel("Linear Discriminant 2")
+plt.title("LDA on Iris Dataset")
+plt.show()
+
